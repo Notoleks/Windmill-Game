@@ -11,7 +11,9 @@ clock = pygame.time.Clock()
 manager = pygame_gui.UIManager((width, height))
 
 windmill = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 100), (150, 150)), text ='', manager=manager)
-windmill.set_image("Windmill1.png")
+windmill1 = pygame.image.load("Windmill1.png")
+windmill.set_image(windmill1)
+
 clock = pygame.time.Clock()
 
 class Board:
