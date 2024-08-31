@@ -7,14 +7,17 @@ pygame.init()
 width, height = 1800,1000
 screen = pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
-
+time = pygame.time.get_ticks()
 manager = pygame_gui.UIManager((width, height))
 
 windmill = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 100), (150, 150)), text ='', manager=manager)
 windmill1 = pygame.image.load("Windmill1.png")
 windmill.set_image(windmill1)
 
-clock = pygame.time.Clock()
+timer = pygame_gui.elements.UILabel(relative_rect = pygame.Rect((200, 200), (100,100)), text = f"{time}", manager = manager)
+# clock = pygame.time.Clock()
+# class Timer:
+#     def __init__(self, width, height, screen, ):
 
 class Board:
     def __init__(self, width, height, screen):
@@ -32,6 +35,8 @@ class Board:
 board1 = Board(width, height, screen)
 while True:
     time_delta = clock.tick(60)/1000.0
+    time = pygame.time.get_ticks()
+    # print(time)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -41,9 +46,12 @@ while True:
                 print('Windmill placed')
         manager.process_events(event)
     manager.update(time_delta)
+    manager.update(time)
+    print(time)
     board1.draw()
     manager.draw_ui(screen)
-
+    pygame.display.update()
+    timer.update(time_delta)
         #game code
 
 
