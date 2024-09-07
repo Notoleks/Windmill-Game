@@ -14,10 +14,20 @@ windmill = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 100), (15
 windmill1 = pygame.image.load("Windmill1.png")
 windmill.set_image(windmill1)
 
-timer = pygame_gui.elements.UILabel(relative_rect = pygame.Rect((200, 200), (100,100)), text = f"{time}", manager = manager)
+# timer = pygame_gui.elements.UILabel(relative_rect = pygame.Rect((200, 200), (100,100)), text = f"{time}", manager = manager)
 # clock = pygame.time.Clock()
 # class Timer:
 #     def __init__(self, width, height, screen, ):
+
+class Timer:
+    def __init__(self, x, y, width, height, text , screen):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.text = text
+        self.screen = screen
+    
+    def draw(self):
+        # pygame.draw.rect(screen, self.rect)
+        self.screen.blit(self.surface, self.rect)
 
 class Board:
     def __init__(self, width, height, screen):
@@ -29,10 +39,12 @@ class Board:
 
 
     def draw(self):
+        surf = self.
         self.screen.blit(self.board, self.rect)
 
 
 board1 = Board(width, height, screen)
+timer1 = Timer(200, 200, width, height, f"{time}", screen)
 while True:
     time_delta = clock.tick(60)/1000.0
     time = pygame.time.get_ticks()
@@ -41,6 +53,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             exit()
+
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == windmill:
                 print('Windmill placed')
@@ -49,11 +62,12 @@ while True:
     manager.update(time)
     print(time)
     board1.draw()
+    timer1.draw()
     manager.draw_ui(screen)
+    # manager.draw_ui(timer)
     pygame.display.update()
-    timer.update(time_delta)
+    # timer.update(time_delta)
         #game code
-
 
     pygame.display.update()
     # clock.tick(60)
