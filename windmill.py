@@ -7,6 +7,14 @@ width, height = 1800,1000
 screen = pygame.display.set_mode((width,height))
 clock = pygame.time.Clock()
 time = pygame.time.get_ticks()
+mouse_pos = pygame.mouse.get_pos()
+font = pygame.font.Font('free-sans-bold.ttf', 20)
+
+def display_time():
+	time_surf = font.render(f"{time}", False, (255, 0, 0))
+	time_rect = time_surf.get_rect(center = (200, 500))
+	screen.blit(time_surf, time_rect)
+	# print(time)
 
 class Button:
 	def __init__(self, x, y, image, scale):
@@ -18,16 +26,16 @@ class Button:
 		self.clicked = False
 		
 	def draw(self, surface):
-		action = False
-		pos = pygame.mouse.get_pos()   
-		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-				self.clicked = True
-				action = True   
-		if pygame.mouse.get_pressed()[0] == 0:
-			self.clicked = False
-			surface.blit(self.image, (self.rect.x, self.rect.y))    
-		return action
+		surface.blit(self.image, (self.rect.x, self.rect.y))    
+
+	def mouse_pressed(self):
+		
+		mouse_pos = pygame.mouse.get_pos()   
+		if self.rect.collidepoint(mouse_pos):
+			if pygame.mouse.get_pressed()[0] == 1:
+				print("windmill")
+	
+
 	
 class Board:
 	def __init__(self, width, height, screen):
@@ -56,8 +64,9 @@ while True:
 	# print(time)
 	board1.draw()
 	windmill_button.draw(screen)
+	windmill_button.mouse_pressed()
 	# timer1.draw()
-
+	display_time()
 	pygame.display.update()
 	# timer.update(time_delta)
 		#game code
