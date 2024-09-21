@@ -11,10 +11,25 @@ mouse_pos = pygame.mouse.get_pos()
 font = pygame.font.Font('free-sans-bold.ttf', 20)
 
 def display_time():
-	time_surf = font.render(f"{time}", False, (255, 0, 0))
+	time_surf = font.render(f"this is time: {int(time/1000)}", False, (255, 0, 0))
 	time_rect = time_surf.get_rect(center = (200, 500))
 	screen.blit(time_surf, time_rect)
 	# print(time)
+
+# class TimeDisplay:
+# 	def __init__(self) -> None:
+# 		self.surface = font.render(f"this is time: {time}", False, (255, 0, 0))
+# 		self.rect =  self.surface.get_rect(center = (200, 500))
+# 		self.time_text = ''
+
+# 	def update(self, time):
+# 		self.time_text = str(time)
+
+# 	def draw(self, screen):
+# 		self.surface = font.render(f"this is time: {self.time_text}", False, (255, 0, 0))
+# 		self.rect =  self.surface.get_rect(center = (200, 500))
+# 		screen.blit(self.surface, self.rect)
+
 
 class Button:
 	def __init__(self, x, y, image, scale):
@@ -51,6 +66,7 @@ class Board:
 windmill_img = pygame.image.load("Windmill1.png")
 windmill_button = Button(100, 200, windmill_img, 0.8)
 board1 = Board(width, height, screen)
+# time_display = TimeDisplay()
 
 while True:
 	time_delta = clock.tick(60)/1000.0
@@ -60,16 +76,20 @@ while True:
 			pygame.quit()
 			exit()
 
+	screen.fill((0,0,0))
+
+	# time_display.update(time)
 
 	# print(time)
 	board1.draw()
 	windmill_button.draw(screen)
 	windmill_button.mouse_pressed()
+	# time_display.draw(screen)
 	# timer1.draw()
 	display_time()
 	pygame.display.update()
 	# timer.update(time_delta)
 		#game code
 
-	pygame.display.update()
+	# pygame.display.update()
 	# clock.tick(60)
